@@ -1,20 +1,8 @@
 const commonFunctions = require('../util/common-functions');
-const fs = require('fs');
+const collectionSource = '/../../db/user.txt';
 
 let proxId = 0;
-let userCollection = [];
-
-fs.readFile(__dirname + '/../../db/user.txt', (err, res) => {
-    if(res.length > 0) {
-        userCollection = JSON.parse(res);
-    }
-});
-
-function gravarDados() {
-    fs.writeFile(__dirname + '/../../db/user.txt', JSON.stringify(userCollection), (err) => {
-        if (err) throw err;
-    })
-}
+let userCollection = commonFunctions.readData(collectionSource, userCollection) || [];
 
 const barberShopRepository = {
 
@@ -29,19 +17,19 @@ const barberShopRepository = {
     insert(barberShop) {
         barberShop.id = ++proxId;
         userCollection.push(barberShop);
-        gravarDados();
+        commonFunctions.saveData(collectionSource, userCollection);
         return barberShop;
     },
 
     update(id, newBody) {
         userCollection[commonFunctions.getPositionInCollection(id, userCollection)] = newBody;
         newBody.id = id;
-        gravarDados();
+        commonFunctions.saveData(collectionSource, userCollection);
         return newBody;
     },
 
     remove(id) {
-        gravarDados();
+        commonFunctions.saveData(collectionSource, userCollection);
         return userCollection.splice(commonFunctions.getPositionInCollection(id, userCollection), 1);
     },
 
