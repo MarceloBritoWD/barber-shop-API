@@ -1,10 +1,22 @@
 const commonFunctions = require('../util/common-functions');
+const fs = require('fs');
+
 let proxId = 0;
 let barberShopCollection = [];
 
+fs.readFile(__dirname + '/../../db/barber-shop.txt', (err, res) => {
+    if(res.length > 0) {
+        barberShopCollection = JSON.parse(res);
+    }
+});
+
+function gravarDados() {
+    fs.writeFile(__dirname + '/../../db/barber-shop.txt', JSON.stringify(barberShopCollection), (err) => {
+        if (err) throw err;
+    })
+}
 
 const barberShopRepository = {
-
     getAll() {
         return barberShopCollection;
     },
@@ -21,16 +33,19 @@ const barberShopRepository = {
     insert(barberShop) {
         barberShop.id = ++proxId;
         barberShopCollection.push(barberShop);
+        gravarDados();
         return barberShop;
     },
 
     update(id, newBarberShop) {
         barberShopCollection[commonFunctions.getPositionInCollection(id, barberShopCollection)] = newBarberShop;
         newBarberShop.id = id;
+        gravarDados();
         return newBarberShop;
     },
 
     remove(id) {
+        gravarDados();
         return barberShopCollection.splice(commonFunctions.getPositionInCollection(id, barberShopCollection), 1);
     },
 

@@ -6,7 +6,6 @@ const constants = require('../config/constants');
 const TWO_HOURS_IN_SECONDS = 7200;
 
 router.post('/login', (req, res) => {
-
     const user = userRepository.getByUsername(req.body.username);
 
     if(!user || (user && user.password !== req.body.password)) {
@@ -24,6 +23,10 @@ router.post('/login', (req, res) => {
     });
 
     res.status(200).send({ auth: true, token: token })
+})
+
+router.post('/register', (req, res) => {
+    res.send(userRepository.insert(req.body));
 })
 
 module.exports = router;

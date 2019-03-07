@@ -10,5 +10,5 @@ app.use('/barber-shop', require('./controller/barber-shop.controller'))
 
 
 app.listen(3000, () => {
-    console.log('ta funcionando?');
+    console.log('Application running at http://localhost:3000');
 })

@@ -1,4 +1,3 @@
-const userRepository = require('../repository/user.repository.js');
 const jwt = require('jsonwebtoken');
 const constants = require('../config/constants');
 
@@ -27,11 +26,7 @@ const security = {
             next();
         })
 
-    },
-
-    // verifyIfHasRolesOf(rolesReceived, necessaryRole) {
-    //     return rolesReceived.find(item => item === necessaryRole);
-    // }
+    }
 }
 
 module.exports = security;

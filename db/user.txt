@@ -1,0 +1,1 @@
+[{"username":"rafael","password":123,"roles":["USER"],"email":"capoliveira@gmail.com","id":1},{"username":"marcelobrito","password":321,"roles":["ADMIN"],"email":"marcelobritowd95@gmail.com","id":2}]
