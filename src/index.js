@@ -5,7 +5,7 @@ const bodyParser = require('body-parser');
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 
-// app.use('/auth', require('./controller/auth.controller'))
+app.use('/auth', require('./controller/auth.controller'))
 app.use('/barber-shop', require('./controller/barber-shop.controller'))
 
 
