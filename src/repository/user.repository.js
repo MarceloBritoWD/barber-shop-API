@@ -1,8 +1,11 @@
 const commonFunctions = require('../util/common-functions');
-const collectionSource = '/../../db/user.txt';
+const collectionSourcePath = '/../../db/user.txt';
 
 let proxId = 0;
-let userCollection = commonFunctions.readData(collectionSource, userCollection) || [];
+let userCollection = [];
+commonFunctions.readData(collectionSourcePath, (res) => {
+    userCollection = res;
+})
 
 const barberShopRepository = {
 
@@ -17,19 +20,19 @@ const barberShopRepository = {
     insert(barberShop) {
         barberShop.id = ++proxId;
         userCollection.push(barberShop);
-        commonFunctions.saveData(collectionSource, userCollection);
+        commonFunctions.saveData(collectionSourcePath, userCollection);
         return barberShop;
     },
 
     update(id, newBody) {
         userCollection[commonFunctions.getPositionInCollection(id, userCollection)] = newBody;
         newBody.id = id;
-        commonFunctions.saveData(collectionSource, userCollection);
+        commonFunctions.saveData(collectionSourcePath, userCollection);
         return newBody;
     },
 
     remove(id) {
-        commonFunctions.saveData(collectionSource, userCollection);
+        commonFunctions.saveData(collectionSourcePath, userCollection);
         return userCollection.splice(commonFunctions.getPositionInCollection(id, userCollection), 1);
     },
 

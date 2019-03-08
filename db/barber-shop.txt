@@ -1,0 +1,1 @@
+[{"name":"Filip`s Barber 2","location":"Cruzeiro","id":1},{"name":"Filip`s Barber 2","location":"Cruzeiro","id":1},{"name":"Filip`s Barber 4","location":"Cruzeiro","id":2}]

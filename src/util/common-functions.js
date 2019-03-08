@@ -11,10 +11,12 @@ const functions = {
         })
     },
 
-    readData(sourceFile) {
+    readData(sourceFile, callback) {
         fs.readFile(__dirname + sourceFile, (err, res) => {
+            if (err) throw err;
+
             if(res.length > 0) {
-                return JSON.parse(res);
+               callback(JSON.parse(res));
             }
         });
     }

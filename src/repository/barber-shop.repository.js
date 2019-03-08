@@ -1,8 +1,11 @@
 const commonFunctions = require('../util/common-functions');
-const collectionSource = '/../../db/barber-shop.txt';
+const collectionSourcePath = '/../../db/barber-shop.txt';
 
 let proxId = 0;
-let barberShopCollection = commonFunctions.readData(collectionSource, barberShopCollection) || [];
+let barberShopCollection = [];
+commonFunctions.readData(collectionSourcePath, (res) => {
+    barberShopCollection = res;
+})
 
 const barberShopRepository = {
     getAll() {
@@ -21,19 +24,19 @@ const barberShopRepository = {
     insert(barberShop) {
         barberShop.id = ++proxId;
         barberShopCollection.push(barberShop);
-        commonFunctions.saveData(collectionSource, barberShopCollection);
+        commonFunctions.saveData(collectionSourcePath, barberShopCollection);
         return barberShop;
     },
 
     update(id, newBarberShop) {
         barberShopCollection[commonFunctions.getPositionInCollection(id, barberShopCollection)] = newBarberShop;
         newBarberShop.id = id;
-        commonFunctions.saveData(collectionSource, barberShopCollection);
+        commonFunctions.saveData(collectionSourcePath, barberShopCollection);
         return newBarberShop;
     },
 
     remove(id) {
-        commonFunctions.saveData(collectionSource, barberShopCollection);
+        commonFunctions.saveData(collectionSourcePath, barberShopCollection);
         return barberShopCollection.splice(commonFunctions.getPositionInCollection(id, barberShopCollection), 1);
     },
 
