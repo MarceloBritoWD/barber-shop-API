@@ -5,7 +5,8 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - uses: yanzay/notify-telegram@v0.1.0
+      - name: <WorkFlow Name>
+        uses: athul/telewire@master
         if: always()
         with:
           chat: ${{ secrets.chat }} # user id or channel name secret
